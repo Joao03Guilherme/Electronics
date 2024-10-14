@@ -1,0 +1,29 @@
+\begin{gnuplot}[terminal=cairolatex, scale=1]
+
+set logscale x
+
+# Set labels for axes
+set xlabel "Frequency (rad/s)"
+set ylabel "Gain (dB)"
+set y2label "Phase (degrees)"
+
+# Set the range for the x-axis (x values)
+set xrange [1:10000]
+
+# Configure y-tics for both left and right axes
+set ytics nomirror
+set y2tics
+
+# Define the constants
+R = 100 * 10**3
+C = 1 * 10**-6
+
+# Define the functions
+f(x) = 20*log10(x * R * C / (1 + x * R * C))
+phi(x) = 90 - atan(x * R * C) * (180 / pi)
+
+# Plot the functions
+plot f(x) title "20 * log₁₀|T(s)|" with lines lw 2, \
+     phi(x) title "Phase" with lines dashtype 2 lw 2 axes x1y2
+
+\end{gnuplot}

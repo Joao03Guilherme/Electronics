@@ -1,0 +1,62 @@
+\begin{gnuplot}[terminal=cairolatex, scale=1]
+R10 = 1.2e3        # R10 = 1.2 * 10^3 ohms
+R8  = 8.2e3        # R8  = 8.2 * 10^3 ohms
+R9  = 330e3        # R9  = 330 * 10^3 ohms
+C4  = 10e-9        # C4  = 10 * 10^-9 farads
+C3  = 8.2e-9       # C3  = 8.2 * 10^-9 farads
+
+i = sqrt(-1)
+
+# Define the function H(x)
+H(x) = -1 / ( R8 * ( (1 / (R9 * (i * 2*pi*x) * C4)) * ( (i * 2*pi*x)*(C3 + C4) + 1/R8 + 1/R10 ) + (i * 2*pi*x * C3 ) ) )
+
+# Define the magnitude function
+f(x) = 20*log10( abs( H(x) ) )
+
+# Define the phase function in degrees, adjusted to range from -90 to -270 degrees
+phi(x) = - arg( H(x) ) * (180 / pi ) - 180
+
+# Set up the plot for magnitude and phase response
+set title "Theoretical bode plot and magnitude experimental points
+set xlabel "Frequency (Hz)"
+set ylabel "Gain (dB)"
+set y2label "Phase (degrees)"
+set xrange [1:100000]
+set logscale x
+set grid
+set key top left
+set key at 20, 27 spacing 1.4 font ",3"
+set samples 1000
+
+# Configure y-tics for both left and right axes
+set ytics nomirror
+set y2tics
+set y2range [-400:0]
+
+# Define the data directly in the script
+$Data << EOD
+6     -36.27789627
+20    -24.90539774
+63    -15.92740937
+250   -3.775266765
+500   3.950716005
+600   6.782034575
+628   7.576905455
+700   9.931351271
+800   13.63218029
+900   18.88142427
+950   22.70516838
+970   24.17265772
+1000  24.96232479
+1100  20.87482441
+1300  13.56766947
+2000  5
+7000 -8
+26000 -20
+EOD
+
+# Plot the theoretical response and experimental points
+plot f(x) title "Magnitude" lw 2, \
+     phi(x) title "Phase" with lines dashtype 2 lw 2 lc rgb "blue" axes x1y2, \
+     $Data using 1:2 with points pt 2 ps 1 lc rgb "red" title "Experimental Points"
+\end{gnuplot}

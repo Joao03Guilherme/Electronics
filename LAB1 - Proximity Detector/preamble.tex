@@ -1,0 +1,158 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Journal Article
+% LaTeX Template
+% Version 1.4 (15/5/16)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Original author:
+% Frits Wenneker (http://www.howtotex.com) with extensive modifications by
+% Vel (vel@LaTeXTemplates.com)
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\usepackage{blindtext} % Package to generate dummy text throughout this template 
+
+\usepackage[sc]{mathpazo} % Use the Palatino font
+\usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
+\linespread{1.05} % Line spacing - Palatino needs more space between lines
+\usepackage{microtype} % Slightly tweak font spacing for aesthetics
+\usepackage{float} % Force position of objects HERE
+
+\usepackage[hang, small,labelfont=bf,up,textfont=it,up]{caption} % Custom captions under/above floats in tables or figures
+\usepackage{booktabs} % Horizontal rules in tables
+\usepackage{array}	% custom columns
+
+\usepackage{lettrine} % The lettrine is the first enlarged letter at the beginning of the text
+
+\usepackage{makecell}
+\usepackage{enumitem} % Customized lists
+\setlist[itemize]{noitemsep} % Make itemize lists more compact
+
+\usepackage{abstract} % Allows abstract customization
+\renewcommand{\abstractnamefont}{\normalfont\bfseries} % Set the "Abstract" text to bold
+\renewcommand{\abstracttextfont}{\normalfont\small\itshape} % Set the abstract itself to small italic text
+
+\usepackage{titlesec} % Allows customization of titles
+\renewcommand\thesection{\Roman{section}} % Roman numerals for the sections
+\renewcommand\thesubsection{\roman{subsection}} % roman numerals for subsections
+\titleformat{\section}[block]{\large\scshape\centering}{\thesection.}{1em}{} % Change the look of the section titles
+\titleformat{\subsection}[block]{\large}{\thesubsection.}{1em}{} % Change the look of the section titles
+
+\usepackage{fancyhdr} % Headers and footers
+%\pagestyle{fancy} % All pages have headers and footers
+%\fancyfoot[RO,LE]{\thepage} % Custom footer text
+
+\usepackage{titling} % Customizing the title section
+
+\usepackage{hyperref} % For hyperlinks in the PDF
+\usepackage{IEEEtrantools}
+ \usepackage{mathtools}
+\usepackage{amssymb} 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{xfrac}
+\usepackage{subcaption}
+\usepackage{physics}
+
+\usepackage{tikz}
+\usepackage{environ}
+\usepackage[export]{adjustbox}
+
+\usepackage{csquotes}
+\usepackage{multirow}
+\usepackage{siunitx}
+\sisetup{uncertainty-mode = separate}
+\usepackage{isotope}
+\usetikzlibrary{positioning,fit,calc}
+\tikzset{block/.style={draw,thick,text width=2cm,minimum height=1cm,align=center},
+	line/.style={-latex}
+}
+
+\makeatletter
+\newsavebox{\measure@tikzpicture}
+\NewEnviron{scaletikzpicturetowidth}[1]{%
+  \def\tikz@width{#1}%
+  \def\tikzscale{1}\begin{lrbox}{\measure@tikzpicture}%
+  \BODY
+  \end{lrbox}%
+  \pgfmathparse{#1/\wd\measure@tikzpicture}%
+  \edef\tikzscale{\pgfmathresult}%
+  \BODY
+}
+\makeatother
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\setlength{\droptitle}{-4\baselineskip} % Move the title up
+
+\pretitle{\begin{center}\Huge\bfseries} % Article title formatting
+\posttitle{\end{center}} % Article title closing formatting
+
+%================================================================================
+%	MATHEMATICAL ABBREVIATIONS
+%================================================================================
+\renewcommand{\inf}{\infty}		% infinity
+\newcommand{\I}{{i\mkern1mu}}	% sqrt(-1)
+\newcommand{\ee}{\mathrm{e}}	% euler constant
+\renewcommand{\exp}[1]{\mathrm{e}^{\left\{#1\right\}}}	% exponential function
+\newcommand{\wt}[1]{\widetilde{#1}}
+\newcommand{\ft}{\widetilde{\phi}}	% wide til phi
+\newcommand{\qed}{\hfill\blacksquare}
+\newcommand{\pdt}[1][]{\partial_{t}^{#1}}		% partial time derivative
+\newcommand{\pdx}[1][]{\partial_{x}^{#1}}		% partial time derivative
+
+%\newcommand{\el}{\mathrm{e^{-}}		% electron
+%\newcommand{\ep}{\mathrm{e^{+}}}		% positron
+%================================================================================
+%	PLASMA ABBREVIATIONS
+%================================================================================
+\newcommand{\qT}{q_{_{T}}}			% test charge
+\newcommand{\qs}{q_{_{s}}}			% species charge
+\newcommand{\qo}{q_{_{0}}}			% charge
+\newcommand{\vvo}{\vb{v}_{_0}}			% species velocity
+\newcommand{\vvs}{\vb{v}_{_s}}			% species velocity
+\newcommand{\vve}{\vb{v}_{_e}}			% electron velocity
+\newcommand{\vvi}{\vb{v}_{_i}}			% ion velocity
+\newcommand{\no}{n_{_{0}}}			% density
+\newcommand{\ns}[1][]{n_{_{s#1}}}	% density: species [order]
+\renewcommand{\ne}[1][]{n_{_{e#1}}}	% density: electron [order]
+\renewcommand{\ni}[1][]{n_{_{i#1}}}	% density: ion [order]
+\newcommand{\Ts}{T_{_{s}}}			% temperature: species
+\newcommand{\Te}{T_{_{e}}}			% temperature: electron
+\newcommand{\Ti}{T_{_{i}}}			% temperature: ion 
+\newcommand{\ms}{m_{_{s}}}			% mass: species 
+\newcommand{\me}{m_{_{e}}}			% mass: electron 
+\newcommand{\mi}{m_{_{i}}}			% mass: ion
+\newcommand{\evac}{\epsilon_{_{0}}}	% vacuum permeability
+\newcommand{\lD}[1][]{\lambda_{_{D{#1}}}}	% [species] Debye's length
+\newcommand{\kB}{k_{_B}}					% Boltzmann's constant
+\newcommand{\dB}[1][]{\frac{e\phi}{\kB T_{_{#1}}}}	% Boltzmann distribution
+%================================================================================
+%	QUANTUM MECHANICS ABBREVIATIONS
+%================================================================================
+\newcommand{\ac}{a^{\dagger}}			% creation operator
+\newcommand{\sa}{\ket{\alpha}}			% state 
+\newcommand{\sacc}{\bra{\alpha}}			% state complex conjugate
+\newcommand{\cO}{\mathcal{O}}			% Order
+
+%\csname endofdump\endcsname
+
+\usepackage[english]{babel} % Language hyphenation and typographical rules
+\usepackage{derivative}		% derivative  
+
+\newcommand{\pmseparator}{\hspace{0.2mm}\ensuremath{\pm}\hspace{0.2mm}}
+\newcolumntype{+}{@{\pmseparator}}
+%\endofdump
+\usepackage[shell]{gnuplottex}
